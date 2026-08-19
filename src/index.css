@@ -1032,6 +1032,8 @@ ul {
 .section-light .contact-aside {
   border-color: var(--line-light);
   background: #fff;
+  padding: 1.75rem 1.5rem;
+  border-radius: 0.5rem;
 }
 
 .section-light .contact-aside h3 {

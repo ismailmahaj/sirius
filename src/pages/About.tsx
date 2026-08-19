@@ -15,7 +15,7 @@ export function About() {
         lead={`${t.common.since} ${company.founded}, ${t.about.lead}`}
       />
 
-      <section className="section section-light" style={{ paddingTop: 0 }}>
+      <section className="section section-light" style={{ paddingTop: '2rem' }}>
         <div className="container">
           <Reveal>
             <div className="prose">

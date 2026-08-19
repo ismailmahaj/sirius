@@ -45,7 +45,7 @@ export function LegalPage({ variant }: Props) {
         lead={content.lead}
       />
 
-      <section className="section section-light" style={{ paddingTop: 0 }}>
+      <section className="section section-light" style={{ paddingTop: '2rem' }}>
         <div className="container">
           <Reveal>
             <LegalSections sections={content.sections} />

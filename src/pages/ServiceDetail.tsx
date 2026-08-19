@@ -25,7 +25,7 @@ export function ServiceDetail() {
         lead={service.short}
       />
 
-      <section className="section section-light" style={{ paddingTop: 0 }}>
+      <section className="section section-light" style={{ paddingTop: '2rem' }}>
         <div className="container">
           <Reveal>
             <div className="service-visual">

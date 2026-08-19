@@ -78,7 +78,7 @@ export function Apply() {
         lead={t.apply.lead}
       />
 
-      <section className="section section-light" style={{ paddingTop: 0 }}>
+      <section className="section section-light" style={{ paddingTop: '2rem' }}>
         <div className="container contact-layout">
           <Reveal>
             {sent ? (
