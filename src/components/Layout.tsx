@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { useTranslation } from '../i18n/LanguageProvider';
+import { CookieConsent } from './CookieConsent';
 import { Footer } from './Footer';
 import { Header } from './Header';
 
 export function Layout() {
   const { pathname, hash } = useLocation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (hash) {
       const id = hash.replace('#', '');
       const el = document.getElementById(id);
       if (el) {
-        // Wait a tick so the route content is painted.
         requestAnimationFrame(() => {
           el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
@@ -24,13 +26,14 @@ export function Layout() {
   return (
     <>
       <a className="skip-link" href="#contenu">
-        Aller au contenu
+        {t.skipLink}
       </a>
       <Header />
       <main id="contenu">
         <Outlet />
       </main>
       <Footer />
+      <CookieConsent />
     </>
   );
 }

@@ -6,7 +6,7 @@ import { getServiceTranslation } from '../i18n';
 import { useTranslation } from '../i18n/LanguageProvider';
 import { submitContactForm } from '../lib/submitContactForm';
 
-export function Contact() {
+export function Quote() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
@@ -23,14 +23,27 @@ export function Contact() {
       return;
     }
 
-    const subjectValue = String(data.get('subject') ?? '');
-    const service = servicesMeta.find((s) => s.slug === subjectValue);
-    const subjectLabel =
-      subjectValue === 'autre'
+    const serviceValue = String(data.get('service') ?? '');
+    const serviceMeta = servicesMeta.find((s) => s.slug === serviceValue);
+    const serviceLabel =
+      serviceValue === 'autre'
         ? t.common.otherRequest
-        : service
-          ? getServiceTranslation(t, service.slug)?.title ?? subjectValue
-          : subjectValue;
+        : serviceMeta
+          ? getServiceTranslation(t, serviceMeta.slug)?.title ?? serviceValue
+          : serviceValue;
+
+    const companyName = String(data.get('company') ?? '').trim();
+    const site = String(data.get('site') ?? '').trim();
+    const start = String(data.get('start') ?? '').trim();
+    const details = String(data.get('message') ?? '').trim();
+
+    const message = [
+      `Société : ${companyName || '—'}`,
+      `Lieu : ${site || '—'}`,
+      `Date de début : ${start || '—'}`,
+      '',
+      details,
+    ].join('\n');
 
     setSending(true);
 
@@ -39,8 +52,8 @@ export function Contact() {
         name: `${String(data.get('firstName') ?? '').trim()} ${String(data.get('lastName') ?? '').trim()}`.trim(),
         email: String(data.get('email') ?? ''),
         phone: String(data.get('phone') ?? ''),
-        subject: subjectLabel,
-        message: String(data.get('message') ?? ''),
+        subject: `Devis — ${serviceLabel}`,
+        message,
         honey: String(data.get('_honey') ?? ''),
       });
       setSent(true);
@@ -56,8 +69,9 @@ export function Contact() {
   return (
     <>
       <PageHero
-        title={t.contact.title}
-        lead={t.contact.lead}
+        eyebrow={t.quote.eyebrow}
+        title={t.quote.title}
+        lead={t.quote.lead}
       />
 
       <section className="section section-light" style={{ paddingTop: 0 }}>
@@ -65,7 +79,7 @@ export function Contact() {
           <Reveal>
             {sent ? (
               <div className="form-success" role="status">
-                {t.contact.success}
+                {t.quote.success}
               </div>
             ) : (
               <form className="form" onSubmit={onSubmit}>
@@ -79,24 +93,24 @@ export function Contact() {
                 />
                 <div className="field-row">
                   <div className="field">
-                    <label htmlFor="firstName">
-                      {t.contact.firstName}{' '}
+                    <label htmlFor="quote-firstName">
+                      {t.quote.firstName}{' '}
                       <span className="req">{t.common.required}</span>
                     </label>
                     <input
-                      id="firstName"
+                      id="quote-firstName"
                       name="firstName"
                       required
                       autoComplete="given-name"
                     />
                   </div>
                   <div className="field">
-                    <label htmlFor="lastName">
-                      {t.contact.lastName}{' '}
+                    <label htmlFor="quote-lastName">
+                      {t.quote.lastName}{' '}
                       <span className="req">{t.common.required}</span>
                     </label>
                     <input
-                      id="lastName"
+                      id="quote-lastName"
                       name="lastName"
                       required
                       autoComplete="family-name"
@@ -104,12 +118,20 @@ export function Contact() {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="email">
-                    {t.contact.email}{' '}
+                  <label htmlFor="quote-company">{t.quote.company}</label>
+                  <input
+                    id="quote-company"
+                    name="company"
+                    autoComplete="organization"
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="quote-email">
+                    {t.quote.email}{' '}
                     <span className="req">{t.common.required}</span>
                   </label>
                   <input
-                    id="email"
+                    id="quote-email"
                     name="email"
                     type="email"
                     required
@@ -117,20 +139,29 @@ export function Contact() {
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="phone">{t.contact.phone}</label>
+                  <label htmlFor="quote-phone">
+                    {t.quote.phone}{' '}
+                    <span className="req">{t.common.required}</span>
+                  </label>
                   <input
-                    id="phone"
+                    id="quote-phone"
                     name="phone"
                     type="tel"
+                    required
                     autoComplete="tel"
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="subject">
-                    {t.contact.subject}{' '}
+                  <label htmlFor="quote-service">
+                    {t.quote.service}{' '}
                     <span className="req">{t.common.required}</span>
                   </label>
-                  <select id="subject" name="subject" required defaultValue="">
+                  <select
+                    id="quote-service"
+                    name="service"
+                    required
+                    defaultValue=""
+                  >
                     <option value="" disabled>
                       {t.common.selectService}
                     </option>
@@ -146,11 +177,32 @@ export function Contact() {
                   </select>
                 </div>
                 <div className="field">
-                  <label htmlFor="message">
-                    {t.contact.message}{' '}
+                  <label htmlFor="quote-site">
+                    {t.quote.site}{' '}
                     <span className="req">{t.common.required}</span>
                   </label>
-                  <textarea id="message" name="message" required />
+                  <input
+                    id="quote-site"
+                    name="site"
+                    required
+                    autoComplete="street-address"
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="quote-start">{t.quote.start}</label>
+                  <input id="quote-start" name="start" type="date" />
+                </div>
+                <div className="field">
+                  <label htmlFor="quote-message">
+                    {t.quote.message}{' '}
+                    <span className="req">{t.common.required}</span>
+                  </label>
+                  <textarea
+                    id="quote-message"
+                    name="message"
+                    required
+                    placeholder={t.quote.messagePlaceholder}
+                  />
                 </div>
                 {error ? (
                   <p className="form-error" role="alert">
@@ -163,7 +215,7 @@ export function Contact() {
                   className="btn btn-primary"
                   disabled={sending}
                 >
-                  {sending ? t.contact.sending : t.common.send}
+                  {sending ? t.contact.sending : t.quote.submit}
                 </button>
               </form>
             )}
@@ -172,10 +224,19 @@ export function Contact() {
           <Reveal delay={120}>
             <aside className="contact-aside">
               <div>
-                <h3>{t.contact.address}</h3>
+                <h3>{t.quote.whyTitle}</h3>
                 <div className="meta">
-                  <span>{company.address}</span>
-                  <span>{company.city}</span>
+                  <span>{t.quote.why1}</span>
+                  <span>{t.quote.why2}</span>
+                  <span>{t.quote.why3}</span>
+                </div>
+              </div>
+              <div>
+                <h3>{t.quote.nextTitle}</h3>
+                <div className="meta">
+                  <span>{t.quote.next1}</span>
+                  <span>{t.quote.next2}</span>
+                  <span>{t.quote.next3}</span>
                 </div>
               </div>
               <div>
@@ -188,12 +249,6 @@ export function Contact() {
                 <h3>{t.contact.email}</h3>
                 <div className="meta">
                   <a href={company.emailHref}>{company.email}</a>
-                </div>
-              </div>
-              <div>
-                <h3>{t.contact.vat}</h3>
-                <div className="meta">
-                  <span>{company.vat}</span>
                 </div>
               </div>
             </aside>

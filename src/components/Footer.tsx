@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
-import { company, hasRealAuthorization, services } from '../data/content';
+import { company, hasRealAuthorization, servicesMeta } from '../data/content';
+import { getServiceTranslation } from '../i18n';
+import { useTranslation } from '../i18n/LanguageProvider';
 
 export function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="site-footer">
       <div className="container">
@@ -15,48 +19,53 @@ export function Footer() {
                 height={60}
               />
             </div>
-            <p>
-              Expertise, innovation et proximité pour des solutions de sécurité
-              sur mesure à Bruxelles et en Belgique.
-            </p>
+            <p>{t.footer.tagline}</p>
           </div>
 
           <div>
-            <div className="footer-title">Navigation</div>
+            <div className="footer-title">{t.footer.navigation}</div>
             <ul>
               <li>
-                <Link to="/">Accueil</Link>
+                <Link to="/">{t.nav.home}</Link>
               </li>
               <li>
-                <Link to="/a-propos">À propos</Link>
+                <Link to="/a-propos">{t.nav.about}</Link>
               </li>
               <li>
-                <Link to="/contact">Contact</Link>
+                <Link to="/contact">{t.nav.contact}</Link>
               </li>
               <li>
-                <Link to="/postuler">Postuler</Link>
+                <Link to="/devis">{t.nav.quote}</Link>
+              </li>
+              <li>
+                <Link to="/postuler">{t.nav.apply}</Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <div className="footer-title">Services</div>
+            <div className="footer-title">{t.footer.services}</div>
             <ul>
-              {services.slice(0, 4).map((s) => (
-                <li key={s.slug}>
-                  <Link to={`/services/${s.slug}`}>{s.title}</Link>
-                </li>
-              ))}
+              {servicesMeta.map((s) => {
+                const service = getServiceTranslation(t, s.slug);
+                return (
+                  <li key={s.slug}>
+                    <Link to={`/services/${s.slug}`}>
+                      {service?.title ?? s.slug}
+                    </Link>
+                  </li>
+                );
+              })}
               <li>
                 <Link to={{ pathname: '/', hash: 'services' }}>
-                  Tous les services
+                  {t.footer.allServices}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <div className="footer-title">Contact</div>
+            <div className="footer-title">{t.footer.contact}</div>
             <ul>
               <li>
                 <a href={company.phoneHref}>{company.phone}</a>
@@ -77,13 +86,20 @@ export function Footer() {
           <span>
             {company.name} © {new Date().getFullYear()}
           </span>
+          <span>
+            {t.footer.vat} : {company.vat}
+          </span>
           {hasRealAuthorization() ? (
             <span>
-              N° d’autorisation ministériel : {company.authorization}
+              {t.footer.authorization} : {company.authorization}
             </span>
-          ) : (
-            <span>Informations réglementaires à compléter</span>
-          )}
+          ) : null}
+        </div>
+
+        <div className="footer-legal">
+          <Link to="/politique-confidentialite">{t.footer.privacy}</Link>
+          <span aria-hidden="true">·</span>
+          <Link to="/politique-cookies">{t.footer.cookies}</Link>
         </div>
       </div>
     </footer>

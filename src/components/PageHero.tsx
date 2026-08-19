@@ -6,7 +6,7 @@ type Props = {
 
 export function PageHero({ eyebrow, title, lead }: Props) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero${eyebrow ? '' : ' page-hero--compact'}`}>
       <div className="container">
         {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
         <h1>{title}</h1>

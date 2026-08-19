@@ -1,32 +1,36 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { PageHero } from '../components/PageHero';
 import { Reveal } from '../components/Reveal';
-import { services } from '../data/content';
+import { servicesMeta } from '../data/content';
+import { getServiceTranslation } from '../i18n';
+import { useTranslation } from '../i18n/LanguageProvider';
 
 export function ServiceDetail() {
   const { slug } = useParams();
-  const service = services.find((s) => s.slug === slug);
+  const { t } = useTranslation();
+  const meta = servicesMeta.find((s) => s.slug === slug);
+  const service = slug ? getServiceTranslation(t, slug) : undefined;
 
-  if (!service) {
+  if (!meta || !service) {
     return <Navigate to="/" replace />;
   }
 
-  const others = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const others = servicesMeta.filter((s) => s.slug !== meta.slug).slice(0, 3);
 
   return (
     <>
       <PageHero
-        eyebrow="Nos services"
+        eyebrow={t.serviceDetail.eyebrow}
         title={service.title}
         lead={service.short}
       />
 
-      <section className="section" style={{ paddingTop: 0 }}>
+      <section className="section section-light" style={{ paddingTop: 0 }}>
         <div className="container">
           <Reveal>
             <div className="service-visual">
               <img
-                src={service.image}
+                src={meta.image}
                 alt=""
                 width={1400}
                 height={900}
@@ -34,14 +38,10 @@ export function ServiceDetail() {
               />
               <div className="prose">
                 <p>{service.description}</p>
-                <p>
-                  Chaque dispositif est conçu avec vous : analyse des risques,
-                  dimensionnement des effectifs, protocoles d’intervention et
-                  reporting clair.
-                </p>
+                <p>{t.serviceDetail.extra}</p>
                 <div className="btn-group" style={{ marginTop: '0.5rem' }}>
-                  <Link className="btn btn-primary" to="/contact">
-                    Demander un devis
+                  <Link className="btn btn-primary" to="/devis">
+                    {t.serviceDetail.requestQuote}
                   </Link>
                 </div>
               </div>
@@ -50,21 +50,26 @@ export function ServiceDetail() {
 
           <Reveal>
             <div className="section-head" style={{ marginTop: '4.5rem' }}>
-              <p className="eyebrow">Autres expertises</p>
-              <h2>Découvrez aussi</h2>
+              <p className="eyebrow">{t.serviceDetail.othersEyebrow}</p>
+              <h2>{t.serviceDetail.othersTitle}</h2>
             </div>
           </Reveal>
 
           <div className="services-grid">
-            {others.map((s, i) => (
-              <Reveal key={s.id} delay={i * 60}>
-                <Link className="service-row" to={`/services/${s.slug}`}>
-                  <h3>{s.title}</h3>
-                  <p>{s.short}</p>
-                  <span className="arrow">Découvrir →</span>
-                </Link>
-              </Reveal>
-            ))}
+            {others.map((s, i) => {
+              const copy = getServiceTranslation(t, s.slug)!;
+              return (
+                <Reveal key={s.id} delay={i * 60}>
+                  <Link className="service-row" to={`/services/${s.slug}`}>
+                    <h3>{copy.title}</h3>
+                    <p>{copy.short}</p>
+                    <span className="arrow">
+                      {t.common.discover} <span aria-hidden="true">→</span>
+                    </span>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { services } from '../data/content';
+import { servicesMeta } from '../data/content';
+import { useTranslation } from '../i18n/LanguageProvider';
+import { getServiceTranslation } from '../i18n';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const isHome = pathname === '/';
 
   useEffect(() => {
@@ -37,23 +41,74 @@ export function Header() {
     .filter(Boolean)
     .join(' ');
 
+  const logoSrc = open
+    ? '/img/logo-nav.png'
+    : scrolled || !isHome
+      ? '/img/logo.png'
+      : '/img/logo-nav.png';
+
   return (
     <header className={headerClass}>
       <div className="container header-inner">
         <Link to="/" className="brand" onClick={close}>
           <img
-            className="brand-logo"
-            src="/img/logo-nav.png"
+            className={`brand-logo${logoSrc === '/img/logo.png' ? ' brand-logo--light' : ''}`}
+            src={logoSrc}
             alt="Sirius Security"
             width={180}
             height={60}
           />
         </Link>
 
+        <nav
+          id="site-nav"
+          className={`nav${open ? ' is-open' : ''}`}
+          aria-label={t.nav.label}
+        >
+          <NavLink to="/" end onClick={close}>
+            {t.nav.home}
+          </NavLink>
+          <details className="nav-dropdown">
+            <summary>{t.nav.services}</summary>
+            <div className="nav-dropdown-panel">
+              {servicesMeta.map((s) => {
+                const service = getServiceTranslation(t, s.slug);
+                return (
+                  <Link key={s.slug} to={`/services/${s.slug}`} onClick={close}>
+                    {service?.title ?? s.slug}
+                  </Link>
+                );
+              })}
+            </div>
+          </details>
+          <NavLink to="/a-propos" onClick={close}>
+            {t.nav.about}
+          </NavLink>
+          <NavLink to="/contact" onClick={close}>
+            {t.nav.contact}
+          </NavLink>
+          <NavLink to="/devis" onClick={close}>
+            {t.nav.quote}
+          </NavLink>
+          <NavLink to="/postuler" onClick={close}>
+            {t.nav.apply}
+          </NavLink>
+          <LanguageSwitcher compact className="lang-switcher-mobile" />
+          <Link
+            className="btn btn-primary header-cta header-cta-mobile"
+            to="/devis"
+            onClick={close}
+          >
+            {t.nav.cta}
+          </Link>
+        </nav>
+
+        <LanguageSwitcher className="lang-switcher-desktop" />
+
         <button
           type="button"
           className={`menu-toggle${open ? ' is-open' : ''}`}
-          aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
           aria-expanded={open}
           aria-controls="site-nav"
           onClick={() => setOpen((v) => !v)}
@@ -61,47 +116,11 @@ export function Header() {
           <span />
         </button>
 
-        <nav
-          id="site-nav"
-          className={`nav${open ? ' is-open' : ''}`}
-          aria-label="Principal"
-        >
-          <NavLink to="/" end onClick={close}>
-            Accueil
-          </NavLink>
-          <details className="nav-dropdown">
-            <summary>Nos services</summary>
-            <div className="nav-dropdown-panel">
-              {services.map((s) => (
-                <Link key={s.slug} to={`/services/${s.slug}`} onClick={close}>
-                  {s.title}
-                </Link>
-              ))}
-            </div>
-          </details>
-          <NavLink to="/a-propos" onClick={close}>
-            À propos
-          </NavLink>
-          <NavLink to="/contact" onClick={close}>
-            Contact
-          </NavLink>
-          <NavLink to="/postuler" onClick={close}>
-            Postuler
-          </NavLink>
-          <Link
-            className="btn btn-primary header-cta header-cta-mobile"
-            to="/contact"
-            onClick={close}
-          >
-            Demander une offre
-          </Link>
-        </nav>
-
         <Link
           className="btn btn-primary header-cta header-cta-desktop"
-          to="/contact"
+          to="/devis"
         >
-          Demander une offre
+          {t.nav.cta}
         </Link>
       </div>
     </header>
