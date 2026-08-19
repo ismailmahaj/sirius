@@ -2079,3 +2079,599 @@ ul {
     transform: none;
   }
 }
+
+/* ========================================================================
+   GOOGLE ADS LANDING PAGES
+   All classes prefixed with .ads- to avoid conflicts
+   ======================================================================== */
+
+/* —— Ads Header —— */
+.ads-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #fff;
+  border-bottom: 1px solid var(--line-light);
+  padding: 0.75rem 0;
+}
+
+.ads-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+  gap: 1rem;
+}
+
+.ads-header-logo img {
+  height: 2.35rem;
+  width: auto;
+  display: block;
+}
+
+.ads-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ads-header-phone {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ink-dark);
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.25s var(--ease);
+}
+
+.ads-header-phone:hover {
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .ads-header-phone {
+    display: flex;
+  }
+}
+
+/* —— Ads Hero —— */
+.ads-hero {
+  position: relative;
+  min-height: 480px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.ads-hero-media {
+  position: absolute;
+  inset: 0;
+}
+
+.ads-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.3) saturate(0.7);
+}
+
+.ads-hero-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 21, 26, 0.2) 0%,
+    rgba(18, 21, 26, 0.6) 50%,
+    rgba(18, 21, 26, 0.92) 100%
+  );
+}
+
+.ads-hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+  padding: clamp(3rem, 8vh, 5rem) 0 clamp(2.5rem, 6vh, 4rem);
+  max-width: 42rem;
+}
+
+.ads-hero .eyebrow {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.ads-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 4.5vw, 2.85rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 1rem;
+}
+
+.ads-hero .lead {
+  color: var(--ink-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 36rem;
+}
+
+.ads-hero .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.ads-hero-trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--ink-subtle);
+  font-weight: 500;
+}
+
+.ads-hero-trust span:not(:last-child)::after {
+  content: '·';
+  margin-left: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .ads-hero {
+    min-height: 520px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ads-hero {
+    min-height: 560px;
+  }
+
+  .ads-hero-media::after {
+    background:
+      linear-gradient(90deg, rgba(18, 21, 26, 0.88) 0%, rgba(18, 21, 26, 0.55) 55%, rgba(18, 21, 26, 0.4) 100%),
+      linear-gradient(0deg, rgba(18, 21, 26, 0.6) 0%, transparent 40%);
+  }
+}
+
+/* —— Ads Section (shared) —— */
+.ads-section {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+}
+
+.ads-section--light {
+  background: var(--bg-light);
+}
+
+.ads-section--dark {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.ads-section .container {
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+}
+
+.ads-section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+}
+
+.ads-section--light .ads-section-title {
+  color: var(--ink-dark);
+}
+
+/* —— Ads Benefits / Problem —— */
+.ads-problem-text {
+  color: var(--ink-dark-muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+  max-width: 38rem;
+  margin-bottom: 1.5rem;
+}
+
+.ads-points-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .ads-points-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ads-point {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-dark);
+}
+
+.ads-point::before {
+  content: '';
+  width: 3px;
+  height: 1.2rem;
+  background: var(--accent);
+  border-radius: 1px;
+  flex-shrink: 0;
+}
+
+.ads-needs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+@media (min-width: 640px) {
+  .ads-needs-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 860px) {
+  .ads-needs-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.ads-need-item {
+  padding: 0.7rem 1rem;
+  background: #fff;
+  border: 1px solid var(--line-light);
+  border-radius: 3px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ink-dark);
+  text-align: center;
+}
+
+/* —— Ads Why Sirius —— */
+.ads-why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .ads-why-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.75rem;
+  }
+}
+
+.ads-why-item {
+  padding-top: 1rem;
+  border-top: 2px solid var(--accent);
+}
+
+.ads-why-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink-dark);
+  margin: 0 0 0.35rem;
+}
+
+.ads-why-item p {
+  color: var(--ink-dark-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+/* —— Ads Process —— */
+.ads-process-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 640px) {
+  .ads-process-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.ads-process-number {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.ads-process-step h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-dark);
+  margin: 0 0 0.3rem;
+}
+
+.ads-process-step p {
+  color: var(--ink-dark-muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+/* —— Ads Quote Form —— */
+.ads-form-section {
+  padding: clamp(3rem, 6vw, 4.5rem) 0;
+  background: var(--bg-light-alt);
+}
+
+.ads-form-header {
+  margin-bottom: 1.75rem;
+}
+
+.ads-form-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: var(--ink-dark);
+  margin: 0 0 0.5rem;
+}
+
+.ads-form-header p {
+  color: var(--ink-dark-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 32rem;
+}
+
+.ads-form {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+}
+
+.ads-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .ads-form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ads-field label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-dark);
+  margin-bottom: 0.3rem;
+}
+
+.ads-field .req {
+  color: var(--accent);
+}
+
+.ads-field input,
+.ads-field select,
+.ads-field textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--line-light);
+  border-radius: 3px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--ink-dark);
+  background: #fff;
+  transition: border-color 0.25s var(--ease);
+}
+
+.ads-field input:focus,
+.ads-field select:focus,
+.ads-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.ads-field textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+.ads-form-privacy {
+  font-size: 0.8rem;
+  color: var(--ink-dark-muted);
+  line-height: 1.5;
+}
+
+.ads-form-privacy a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.ads-form-success {
+  padding: 1.5rem;
+  background: rgba(10, 132, 197, 0.08);
+  border: 1px solid rgba(10, 132, 197, 0.25);
+  border-radius: 3px;
+  color: var(--ink-dark);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.ads-form-error {
+  padding: 0.75rem 1rem;
+  background: rgba(196, 92, 92, 0.08);
+  border: 1px solid rgba(196, 92, 92, 0.25);
+  border-radius: 3px;
+  color: var(--danger);
+  font-size: 0.88rem;
+}
+
+.ads-field-honey {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* —— Ads FAQ —— */
+.ads-faq-list {
+  max-width: 42rem;
+}
+
+.ads-faq-item {
+  border-bottom: 1px solid var(--line-light);
+}
+
+.ads-faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-dark);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.25s var(--ease);
+}
+
+.ads-faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.ads-faq-item summary::after {
+  content: '+';
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-left: 1rem;
+  transition: transform 0.25s var(--ease);
+}
+
+.ads-faq-item[open] summary::after {
+  content: '−';
+}
+
+.ads-faq-item summary:hover {
+  color: var(--accent);
+}
+
+.ads-faq-answer {
+  padding: 0 0 1rem;
+  color: var(--ink-dark-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  max-width: 36rem;
+}
+
+/* —— Ads Final CTA —— */
+.ads-final-cta {
+  position: relative;
+  padding: clamp(3rem, 7vw, 5rem) 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.ads-final-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 60% at 20% 50%, rgba(10, 132, 197, 0.12), transparent 70%);
+  pointer-events: none;
+}
+
+.ads-final-cta-content {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2rem, var(--max));
+  margin-inline: auto;
+  max-width: 36rem;
+}
+
+.ads-final-cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.35rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0 0 0.75rem;
+}
+
+.ads-final-cta p {
+  color: var(--ink-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 32rem;
+}
+
+.ads-final-cta .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* —— Ads Mobile Sticky CTA —— */
+.ads-mobile-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 180;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line-light);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.ads-mobile-sticky .btn {
+  flex: 1;
+  text-align: center;
+  font-size: 0.78rem;
+  padding: 0.6rem 0.5rem;
+  white-space: nowrap;
+}
+
+@media (min-width: 860px) {
+  .ads-mobile-sticky {
+    display: none;
+  }
+}
+
+@media (max-width: 859px) {
+  .ads-page {
+    padding-bottom: 3.5rem;
+  }
+}

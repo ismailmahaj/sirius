@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import { About } from './pages/About';
+import { AdsLanding } from './pages/AdsLanding';
 import { Apply } from './pages/Apply';
 import { Contact } from './pages/Contact';
 import { Cookies } from './pages/Cookies';
@@ -13,6 +14,12 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Google Ads landing pages (own layout, no main nav) */}
+        <Route path="gardiennage-statique" element={<AdsLanding />} />
+        <Route path="inspection-magasin" element={<AdsLanding />} />
+        <Route path="securite-evenementielle" element={<AdsLanding />} />
+
+        {/* Main site */}
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="a-propos" element={<About />} />
