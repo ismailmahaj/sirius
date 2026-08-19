@@ -923,7 +923,7 @@ ul {
 
 /* —— Sections —— */
 .section {
-  padding: clamp(2.75rem, 6vw, 4.5rem) 0;
+  padding: clamp(3.25rem, 7vw, 5rem) 0;
 }
 
 .section-tight {
@@ -1068,7 +1068,7 @@ ul {
 
 .section-head {
   max-width: 40rem;
-  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+  margin-bottom: clamp(1.75rem, 3vw, 2.25rem);
 }
 
 .page-hero .container {
@@ -1098,7 +1098,7 @@ ul {
 }
 
 .section-head h2 {
-  font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+  font-size: clamp(2rem, 4vw, 2.85rem);
   margin-bottom: 0.9rem;
 }
 
