@@ -1036,12 +1036,12 @@ ul {
 
 .section-light .contact-aside h3 {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-dark-muted);
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.3rem;
 }
 
 .section-light .contact-aside a {
@@ -1051,8 +1051,8 @@ ul {
 
 .section-light .contact-aside .meta {
   color: var(--ink-dark-muted);
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.45;
 }
 
 .section-light .btn-ghost {
@@ -1536,9 +1536,9 @@ ul {
 
 .contact-aside {
   display: grid;
-  gap: 1.75rem;
+  gap: 1.15rem;
   align-content: start;
-  padding: 1.75rem 0;
+  padding: 1.25rem 0;
   border-top: 1px solid var(--line);
 }
 
@@ -1546,17 +1546,17 @@ ul {
   .contact-aside {
     border-top: none;
     border-left: 1px solid var(--line);
-    padding: 0 0 0 2.5rem;
+    padding: 0 0 0 2rem;
   }
 }
 
 .contact-aside h3 {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.3rem;
 }
 
 .contact-aside a {
@@ -1571,8 +1571,8 @@ ul {
 
 .contact-aside .meta {
   color: var(--ink-muted);
-  font-size: 1rem;
-  line-height: 1.55;
+  font-size: 0.92rem;
+  line-height: 1.45;
   display: grid;
   gap: 0.35rem;
 }
