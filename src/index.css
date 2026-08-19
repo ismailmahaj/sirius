@@ -847,7 +847,7 @@ ul {
 
 .trust-bar-list li {
   position: relative;
-  padding: 1.35rem 1rem;
+  padding: 0.9rem 1rem;
   text-align: center;
 }
 
@@ -867,7 +867,7 @@ ul {
   }
 
   .trust-bar-list li {
-    padding: 1.5rem 1.25rem;
+    padding: 1rem 1.25rem;
   }
 
   .trust-bar-label {
@@ -927,7 +927,7 @@ ul {
 }
 
 .section-tight {
-  padding-top: 0;
+  padding-top: clamp(2rem, 4vw, 3rem);
 }
 
 /* Sections claires — touche de luminosité sans basculer tout le site */
